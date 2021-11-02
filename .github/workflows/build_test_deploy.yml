@@ -79,9 +79,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push Docker Image with Tag ${GITHUB_REF##*/}
+      - name: Push Docker Image with Reference Tag
         run: |
           docker push ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/}
-      - name: Push Docker Image with Tag latest
+      - name: Push Docker Image with Latest Tag
         run: |
           docker push ghcr.io/${GITHUB_REPOSITORY}:latest
