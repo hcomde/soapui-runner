@@ -73,6 +73,12 @@ jobs:
       - name: Add Latest Tag To Docker Image
         run: |
           docker tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ghcr.io/${GITHUB_REPOSITORY}:latest
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy Docker Image
         run: |
           docker push ghcr.io/${GITHUB_REPOSITORY}
