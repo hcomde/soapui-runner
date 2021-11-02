@@ -21,13 +21,13 @@ jobs:
           curl -o ./ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
+          docker build -t ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
       - name: Create Artifact Directory /tmp/storedDockerImages
         run: |
           mkdir /tmp/storedDockerImages
       - name: Pack Docker Image
         run: |
-          docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
+          docker save ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:
@@ -54,7 +54,7 @@ jobs:
           docker run -i --rm \
           -v ${PWD}/test:/opt/soapui/projects \
           -v ${PWD}/test/reports:/opt/soapui/projects/reports \
-            ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} -r -j -J \
+            ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} -r -j -J \
               -f /opt/soapui/projects/reports \
               -I /opt/soapui/projects/TestProject-soapui-project.xml
 
