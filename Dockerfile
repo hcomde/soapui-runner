@@ -14,8 +14,8 @@ RUN mkdir -p /opt &&\
 # @see https://community.smartbear.com/t5/SoapUI-Open-Source-Questions/Soap-UI-5-6-0-tgz-on-Linux-is-broken-FIX-INSIDE/td-p/204960
 RUN rm /opt/SoapUI/lib/xmlbeans-xmlpublic-2.6.0.jar
 
-# Copy external libraries to soap ui
-COPY ext/ /opt/SoapUI/bin/ext/
+# Copy extensions to soap ui
+COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
 
 # Set environment
 ENV PATH ${PATH}:/opt/SoapUI/bin
