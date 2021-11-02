@@ -13,7 +13,10 @@ RUN mkdir -p /opt &&\
 # @version 5.6.0
 # @see https://community.smartbear.com/t5/SoapUI-Open-Source-Questions/Soap-UI-5-6-0-tgz-on-Linux-is-broken-FIX-INSIDE/td-p/204960
 # @see https://community.smartbear.com/t5/SoapUI-Open-Source-Questions/XQuery-assertions-are-broken-with-SoapUI-5-6-0/td-p/207783
-RUN rm /opt/SoapUI/lib/xmlbeans-xmlpublic-2.6.0.jar /opt/SoapUI/lib/xmlbeans-xpath-2.6.0.jar
+RUN rm /opt/SoapUI/lib/xmlbeans-xmlpublic-2.6.0.jar \
+       /opt/SoapUI/lib/xmlbeans-xpath-2.6.0.jar \
+       /opt/SoapUI/lib/xmlbeans-3.1.1-sb-fixed.jar \
+ && curl -o /opt/SoapUI/lib/xmlbeans-3.1.0.jar https://repo.maven.apache.org/maven2/org/apache/xmlbeans/xmlbeans/3.1.0/xmlbeans-3.1.0.jar
 
 # Copy extensions to soap ui
 COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
