@@ -1,4 +1,4 @@
-FROM openjdk:8-jre
+FROM openjdk:11-jre
 
 # SOAP UI Version to download
 ENV SOAPUI_VERSION 5.6.0
