@@ -1,9 +1,10 @@
 # SoapUI Runner
 
 This project is a docker image for running functional SoapUI tests in a docker container. The image contains 
-**SoapUI 5.6.0** running on **openjdk:1-jre** docker image. 
+**SoapUI 5.6.0** running on **openjdk:11-jre** docker image. 
 
 ## Extensions
+
 The SoapUI image is equipped with a [MySQL Connector](https://dev.mysql.com/doc/connector-j/8.0/en/) extension. 
 Additional extensions can be added via a Docker mount in the `/opt/SoapUI/bin/ext/` directory.
 
