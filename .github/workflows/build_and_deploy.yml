@@ -1,0 +1,77 @@
+name: Build And Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download MySQL Connector
+        run: |
+          curl -o ./ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
+      - name: Build Docker Image
+        run: |
+          docker build -t ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
+      - name: Pack Docker Image
+        run: |
+          docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImage.tar
+      - name: Upload Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: storedDockerImage
+          path: /tmp/storedDockerImage.tar
+
+  test:
+    name: Test Docker Image
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@master
+        with:
+          name: storedDockerImage
+          path: /tmp/storedDockerImage.tar
+      - name: Load Docker Image
+        run: |
+          docker load < /tmp/storedDockerImage.tar
+      - name: Run Test Project
+        run: |
+          docker run -i --rm \
+          -v ${PWD}/test:/opt/soapui/projects \
+          -v ${PWD}/test/reports:/opt/soapui/projects/reports \
+            ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} -r -j -J \
+              -f /opt/soapui/projects/reports \
+              -I /opt/soapui/projects/TestProject-soapui-project.xml
+
+  publish:
+    name: Publish Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Download Artifacts
+        uses: actions/download-artifact@master
+        with:
+          name: storedDockerImage
+          path: /tmp/storedDockerImage.tar
+      - name: Load Docker Image
+        run: |
+          docker load < /tmp/storedDockerImage.tar
+      - name: Add Latest Tag To Docker Image
+        run: |
+          docker tag ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ${GITHUB_REPOSITORY}:latest
+      - name: Deploy Docker Image
+        uses: macbre/push-to-ghcr@master
+        with:
+          image_name: ${{ github.repository }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
