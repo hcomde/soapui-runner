@@ -22,14 +22,17 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
+      - name: Create Artifact Directory
+        run: |
+          mkdir /tmp/storedDockerImages
       - name: Pack Docker Image
         run: |
-          docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImage.tar
+          docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REPOSITORY}_${GITHUB_REF##*/}.tar
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:
-          name: storedDockerImage
-          path: /tmp/storedDockerImage.tar
+          name: storedDockerImages
+          path: /tmp/storedDockerImages
 
   test:
     name: Test Docker Image
@@ -41,11 +44,11 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@master
         with:
-          name: storedDockerImage
-          path: /tmp/storedDockerImage.tar
+          name: storedDockerImages
+          path: /tmp/storedDockerImages
       - name: Load Docker Image
         run: |
-          docker load < /tmp/storedDockerImage.tar
+          docker load < /tmp/storedDockerImages/${GITHUB_REPOSITORY}_${GITHUB_REF##*/}.tar
       - name: Run Test Project
         run: |
           docker run -i --rm \
@@ -65,11 +68,11 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@master
         with:
-          name: storedDockerImage
-          path: /tmp/storedDockerImage.tar
+          name: storedDockerImages
+          path: /tmp/storedDockerImages
       - name: Load Docker Image
         run: |
-          docker load < /tmp/storedDockerImage.tar
+          docker load < /tmp/storedDockerImages/${GITHUB_REPOSITORY}_${GITHUB_REF##*/}.tar
       - name: Add Latest Tag To Docker Image
         run: |
           docker tag ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ${GITHUB_REPOSITORY}:latest
