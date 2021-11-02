@@ -21,10 +21,10 @@ jobs:
           curl -o ./ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
       - name: Build Docker Image
         run: |
-          docker build -t ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
+          docker build -t ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
       - name: Pack Docker Image
         run: |
-          docker save ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
+          docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
       - name: Upload Artifact
         uses: actions/upload-artifact@master
         with:
@@ -51,7 +51,7 @@ jobs:
           docker run -i --rm \
           -v ${PWD}/test:/opt/soapui/projects \
           -v ${PWD}/test/reports:/opt/soapui/projects/reports \
-            ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} -r -j -J \
+            ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} -r -j -J \
               -f /opt/soapui/projects/reports \
               -I /opt/soapui/projects/TestProject-soapui-project.xml
 
@@ -72,7 +72,7 @@ jobs:
           docker load < /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
       - name: Add Latest Tag To Docker Image
         run: |
-          docker tag ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ${GITHUB_REPOSITORY}:latest
+          docker tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ghcr.io/${GITHUB_REPOSITORY}:latest
       - name: Deploy Docker Image
         uses: macbre/push-to-ghcr@master
         with:
