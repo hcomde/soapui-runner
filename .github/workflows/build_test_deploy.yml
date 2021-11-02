@@ -13,18 +13,15 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Create Extension Directory ./ext
+      - name: Create Directories
         run: |
-          mkdir ./ext
+          mkdir ./ext /tmp/storedDockerImages
       - name: Download MySQL Connector
         run: |
           curl -o ./ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
       - name: Build Docker Image
         run: |
           docker build -t ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} .
-      - name: Create Artifact Directory /tmp/storedDockerImages
-        run: |
-          mkdir /tmp/storedDockerImages
       - name: Pack Docker Image
         run: |
           docker save ${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
