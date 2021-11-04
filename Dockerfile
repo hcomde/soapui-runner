@@ -1,6 +1,5 @@
 FROM openjdk:11-jre
 
-# SOAP UI Version to download
 ENV SOAPUI_VERSION 5.6.0
 
 # Download and unarchive SoapUI
@@ -20,6 +19,9 @@ RUN rm /opt/SoapUI/lib/xmlbeans-xmlpublic-2.6.0.jar \
 
 # Copy extensions to soap ui
 COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
+
+# Download mysql connector
+RUN curl -o /opt/SoapUI/bin/ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
 
 # Set environment
 ENV PATH ${PATH}:/opt/SoapUI/bin
