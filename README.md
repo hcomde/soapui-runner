@@ -46,6 +46,7 @@ requires the path to the soapui-project.xml file. This path also refers to the p
 
 ## Credit
 Credit goes to 
+ - [Fabian Jocks](https://github.com/iamfj)
  - Robin Matz ([robinmatz/soapui-runner](https://github.com/robinmatz/soapui-runner))
  - Luka Stosic ([lukastosic/docker-soapui](https://hub.docker.com/r/lukastosic/docker-soapui))
  - Daniel Davison ([ddavison/soapui](https://hub.docker.com/r/ddavison/soapui))
