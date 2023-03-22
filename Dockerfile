@@ -2,10 +2,13 @@ FROM amazoncorretto:17
 
 ENV SOAPUI_VERSION 5.7.0
 
+# Install gzip and tar
+RUN yum -y install gzip tar && yum -y clean all  && rm -rf /var/cache
+
 # Download and unarchive SoapUI
 RUN mkdir -p /opt &&\
-    curl  https://s3.amazonaws.com/downloads.eviware/soapuios/${SOAPUI_VERSION}/SoapUI-${SOAPUI_VERSION}-linux-bin.tar.gz \
-    | gunzip -c - | tar -xf - -C /opt && \
+    curl -s https://s3.amazonaws.com/downloads.eviware/soapuios/${SOAPUI_VERSION}/SoapUI-${SOAPUI_VERSION}-linux-bin.tar.gz  \
+    | tar -xvz -C /opt && \
     ln -s /opt/SoapUI-${SOAPUI_VERSION} /opt/SoapUI
 
 # Remove deprecated library
@@ -16,7 +19,7 @@ RUN mkdir -p /opt &&\
 # && curl -o /opt/SoapUI/lib/xmlbeans-3.1.0.jar https://repo.maven.apache.org/maven2/org/apache/xmlbeans/xmlbeans/3.1.0/xmlbeans-3.1.0.jar
 
 # Copy extensions to soap ui
-COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
+#COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
 
 # Download mysql connector
 RUN curl -o /opt/SoapUI/bin/ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar

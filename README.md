@@ -1,7 +1,7 @@
 # SoapUI Runner
 
 This project is a docker image for running functional SoapUI tests in a docker container. The image contains 
-**SoapUI 5.6.0** running on **openjdk:11-jre** docker image. 
+**SoapUI 5.7.0** running on **amazoncorretto:17** docker image. 
 
 ## Extensions
 
