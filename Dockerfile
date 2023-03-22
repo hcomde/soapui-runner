@@ -1,6 +1,7 @@
 FROM amazoncorretto:11
 
 ENV SOAPUI_VERSION 5.7.0
+ENV MYSQL_CONNECTOR_VERSION 8.0.32
 
 # Install gzip and tar
 RUN yum -y install gzip tar && yum -y clean all  && rm -rf /var/cache
@@ -11,18 +12,11 @@ RUN mkdir -p /opt &&\
     | tar -xvz -C /opt && \
     ln -s /opt/SoapUI-${SOAPUI_VERSION} /opt/SoapUI
 
-# Remove deprecated library
-# @version 5.7.0
-# @see https://community.smartbear.com/t5/SoapUI-Open-Source-Questions/XQuery-assertions-are-broken-with-SoapUI-5-6-0/td-p/207783
-#RUN rm /opt/SoapUI/lib/xmlbeans-xpath-2.6.0.jar \
-#       /opt/SoapUI/lib/xmlbeans-3.1.1-sb-fixed.jar \
-# && curl -o /opt/SoapUI/lib/xmlbeans-3.1.0.jar https://repo.maven.apache.org/maven2/org/apache/xmlbeans/xmlbeans/3.1.0/xmlbeans-3.1.0.jar
-
-# Copy extensions to soap ui
-#COPY .gitignore ./ext/* /opt/SoapUI/bin/ext/
-
 # Download mysql connector
-RUN curl -o /opt/SoapUI/bin/ext/mysql-connector-java.jar https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.27/mysql-connector-java-8.0.27.jar
+RUN cd /opt/SoapUI/bin/ext \
+    && curl -OJL https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz  \
+    && tar -xvzf mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz mysql-connector-j-${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar \
+    && rm mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz
 
 # Set environment
 ENV PATH ${PATH}:/opt/SoapUI/bin
