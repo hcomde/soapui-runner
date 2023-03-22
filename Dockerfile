@@ -1,4 +1,4 @@
-FROM amazoncorretto:17
+FROM amazoncorretto:11
 
 ENV SOAPUI_VERSION 5.7.0
 
