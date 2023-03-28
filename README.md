@@ -5,8 +5,7 @@ This project is a docker image for running functional SoapUI tests in a docker c
 
 ## Extensions
 
-The SoapUI image is equipped with a [MySQL Connector](https://dev.mysql.com/doc/connector-j/8.0/en/) extension. 
-Additional extensions can be added via a Docker mount in the `/opt/SoapUI/bin/ext/` directory.
+The SoapUI image is equipped with a [MySQL Connector](https://dev.mysql.com/doc/connector-j/8.0/en/) extension.
 
 ## Usage
 

@@ -1,4 +1,4 @@
-name: Build, Test and Deploy
+name: Build, Test and Publish
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
         run: |
           docker save ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} > /tmp/storedDockerImages/${GITHUB_REF##*/}.tar
       - name: Upload Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@main #https://github.com/actions/upload-artifact
         with:
           name: storedDockerImages
           path: /tmp/storedDockerImages
@@ -35,7 +35,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
       - name: Download Artifacts
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@main #https://github.com/actions/download-artifact
         with:
           name: storedDockerImages
           path: /tmp/storedDockerImages
@@ -51,15 +51,15 @@ jobs:
               -f /opt/soapui/projects/reports \
               -I /opt/soapui/projects/TestProject-soapui-project.xml
 
-  deploy:
-    name: Deploy
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     needs: test
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3 #https://github.com/marketplace/actions/checkout
       - name: Download Artifacts
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@main #https://github.com/actions/download-artifact
         with:
           name: storedDockerImages
           path: /tmp/storedDockerImages
@@ -70,7 +70,7 @@ jobs:
         run: |
           docker tag ghcr.io/${GITHUB_REPOSITORY}:${GITHUB_REF##*/} ghcr.io/${GITHUB_REPOSITORY}:latest
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2 #https://github.com/marketplace/actions/docker-login
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
