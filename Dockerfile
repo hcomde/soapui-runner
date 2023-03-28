@@ -15,7 +15,7 @@ RUN mkdir -p /opt &&\
 # Download mysql connector
 RUN cd /opt/SoapUI/bin/ext \
     && curl -OJL https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz  \
-    && tar -xvzf mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz mysql-connector-j-${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar \
+    && tar -xvzf mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz mysql-connector-j-${MYSQL_CONNECTOR_VERSION}/mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.jar --strip-components=1 \
     && rm mysql-connector-j-${MYSQL_CONNECTOR_VERSION}.tar.gz
 
 # Set environment
