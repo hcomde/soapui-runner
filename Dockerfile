@@ -1,6 +1,6 @@
 FROM amazoncorretto:11
 
-ENV SOAPUI_VERSION 5.7.0
+ENV SOAPUI_VERSION 5.7.1
 ENV MYSQL_CONNECTOR_VERSION 8.0.32
 
 # Install gzip and tar
