@@ -8,7 +8,7 @@ RUN yum -y install gzip tar && yum -y clean all  && rm -rf /var/cache
 
 # Download and unarchive SoapUI
 RUN mkdir -p /opt &&\
-    curl -s https://s3.amazonaws.com/downloads.eviware/soapuios/${SOAPUI_VERSION}/SoapUI-${SOAPUI_VERSION}-linux-bin.tar.gz  \
+    curl -s https://dl.eviware.com/soapuios/${SOAPUI_VERSION}/SoapUI-${SOAPUI_VERSION}-linux-bin.tar.gz  \
     | tar -xvz -C /opt && \
     ln -s /opt/SoapUI-${SOAPUI_VERSION} /opt/SoapUI
 
