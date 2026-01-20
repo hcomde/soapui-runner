@@ -1,7 +1,7 @@
-FROM amazoncorretto:17
+FROM amazoncorretto:25
 
-ENV SOAPUI_VERSION 5.8.0
-ENV MYSQL_CONNECTOR_VERSION 8.0.33
+ENV SOAPUI_VERSION 5.9.1
+ENV MYSQL_CONNECTOR_VERSION 9.5.0
 
 # Install gzip and tar
 RUN yum -y install gzip tar && yum -y clean all  && rm -rf /var/cache
