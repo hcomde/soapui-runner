@@ -43,6 +43,20 @@ The ``-j argument`` creates a JUnit XML report. The ``-f argument`` lets you spe
 reports. Note that here you will have to specify the folder in the **docker container**. Last, the ``-I argument`` 
 requires the path to the soapui-project.xml file. This path also refers to the path in the **docker container**.
 
+### Update SoapUI
+
+To update SoapUI, check the most recent stable and fully released version for 
+- [SoapUI](https://www.soapui.org/downloads/latest-release/)
+- [MySql Connector/J](https://dev.mysql.com/downloads/connector/j/)
+- [Amazon Corretto](https://aws.amazon.com/corretto/)
+
+Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`. 
+
+Check the GitHub workflow if Build and Push are successful. 
+If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
+
+If the workflow passes, add a tag with the new `[SoapUI-Version]`.
+
 ## Credit
 Credit goes to 
  - [Fabian Jocks](https://github.com/iamfj)
