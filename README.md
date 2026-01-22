@@ -50,7 +50,7 @@ To update SoapUI, check the most recent stable and fully released version for
 - [MySql Connector/J](https://dev.mysql.com/downloads/connector/j/)
 - [Amazon Corretto](https://aws.amazon.com/corretto/)
 
-Also check compatibility between SoapUI and the Java version used in Amazon Corretto. 
+Also check compatibility between SoapUI and the Java version used in Amazon Corretto. At the moment, Java 17 is supported by SoapUI, so Amazon Corretto 17 is kept. 
 
 Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
 If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
