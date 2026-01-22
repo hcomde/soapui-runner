@@ -50,11 +50,10 @@ To update SoapUI, check the most recent stable and fully released version for
 - [MySql Connector/J](https://dev.mysql.com/downloads/connector/j/)
 - [Amazon Corretto](https://aws.amazon.com/corretto/)
 
-Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`. 
+Also check compatibility between SoapUI and the Java version used in Amazon Corretto. 
 
-Check the GitHub workflow if Build and Push are successful. 
+Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
 If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
-
 If the workflow passes, add a tag with the new `[SoapUI-Version]`.
 
 Edit in project `hoyailog` the `.env` file and add the new SoapUI version under the corresponding docker tag.
