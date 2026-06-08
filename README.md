@@ -62,7 +62,7 @@ Currently, the following actions used:
 - `env: FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` (ensures actions run on Node.js 24)
 
 
-Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
+Commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
 If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
 If the workflow passes, add a tag with the new `[SoapUI-Version]`.
 
