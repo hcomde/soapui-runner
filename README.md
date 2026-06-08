@@ -80,6 +80,7 @@ In the logs, there should be a line `Image ghcr.io/hcomde/soapui-runner:[SoapUI-
 ## Credit
 Credit goes to 
  - [Fabian Jocks](https://github.com/iamfj)
+ - [Karla Scholz](https://github.com/karlascholz-hcom)
  - Robin Matz ([robinmatz/soapui-runner](https://github.com/robinmatz/soapui-runner))
  - Luka Stosic ([lukastosic/docker-soapui](https://hub.docker.com/r/lukastosic/docker-soapui))
  - Daniel Davison ([ddavison/soapui](https://hub.docker.com/r/ddavison/soapui))
