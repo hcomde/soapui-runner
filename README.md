@@ -45,16 +45,11 @@ requires the path to the soapui-project.xml file. This path also refers to the p
 
 ### Update SoapUI and CI/CD
 
-To update SoapUI, check the most recent stable and fully released version for 
+To update SoapUI, update the `Dockerfile` the most recent stable and fully released version for 
 - [SoapUI](https://www.soapui.org/downloads/latest-release/)
 - [MySql Connector/J](https://dev.mysql.com/downloads/connector/j/)
 - [Amazon Corretto](https://aws.amazon.com/corretto/)
-
-Also, check compatibility between SoapUI and the Java version used in Amazon Corretto. At the moment, the latest Java version supported by SoapUI is Java 17, so Amazon Corretto 17 is kept. 
-
-Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
-If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
-If the workflow passes, add a tag with the new `[SoapUI-Version]`.
+  - Check the compatibility between SoapUI and Java. At the moment, the latest Java version supported by SoapUI is Java 17, so Amazon Corretto 17 is kept.
 
 The GitHub Actions in the CI/CD pipeline are kept up to date to ensure compatibility with newer Node.js runners. 
 Check the repositories for the latest version and update them in `build_test_deploy.yml` if necessary.
@@ -65,6 +60,12 @@ Currently, the following actions used:
 - `actions/download-artifact`, Repository can be found [here](https://github.com/actions/download-artifact)
 - `docker/login-action`, Repository can be found [here](https://github.com/marketplace/actions/docker-login)
 - `env: FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` (ensures actions run on Node.js 24)
+
+
+Set versions in `Dockerfile`, commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
+If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, until the workflow passes. 
+If the workflow passes, add a tag with the new `[SoapUI-Version]`.
+
 
 Edit in project `hoyailog` the `.env` file and add the new SoapUI version under the corresponding docker tag.
 Also edit `docker-compose-mockservices.yml` and add the new SoapUI version for the Soap mock services. 
