@@ -67,7 +67,7 @@ If they fail, fix the issue and add a new tag, e.g. `[SoapUI-Version]-alpha2`, u
 If the workflow passes, add a tag with the new `[SoapUI-Version]`.
 
 
-Edit in project `hoyailog` the `.env` file and add the new SoapUI version under the corresponding docker tag.
+Edit in project `hoyailog` the `.env` file and update the SoapUI version under the docker tag `HOYAILOG_SOAPUI_DOCKER_TAG`.
 Also edit `docker-compose-mockservices.yml` and add the new SoapUI version for the Soap mock services. 
 
 Then execute the SoapUI test run in TeamCity and check if the correct version of SoapUI is executed. 
