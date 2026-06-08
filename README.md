@@ -59,7 +59,11 @@ Currently, the following actions used:
 - `actions/upload-artifact`, Repository can be found [here](https://github.com/actions/upload-artifact)
 - `actions/download-artifact`, Repository can be found [here](https://github.com/actions/download-artifact)
 - `docker/login-action`, Repository can be found [here](https://github.com/marketplace/actions/docker-login)
-- `env: FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` (ensures actions run on Node.js 24)
+
+Because of a deprecation issue with Node, GitHub warned about version mismatches. To use Node.js 24, it was recommended to add this flag: `env: FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true`. 
+This can be removed when Node.js 24 is set as default, which should be June 16th, 2026, according to GitHubs documentation.
+
+For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
 
 
 Commit and push with a tag `[SoapUI-Version]-alpha`, then check the GitHub workflow if Build and Push are successful. 
