@@ -77,6 +77,8 @@ Also edit `docker-compose-mockservices.yml` and add the new SoapUI version for t
 Then execute the SoapUI test run in TeamCity and check if the correct version of SoapUI is executed. 
 In the logs, there should be a line `Image ghcr.io/hcomde/soapui-runner:[SoapUI-Version] Pulling`.
 
+Also execute Deploy SoapUI Mock Services in TeamCity and check if the correct version is pulled and build correctly. 
+
 ## Credit
 Credit goes to 
  - [Fabian Jocks](https://github.com/iamfj)
