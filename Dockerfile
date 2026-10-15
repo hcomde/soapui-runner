@@ -1,12 +1,12 @@
 FROM amazoncorretto:17
 
 ENV SOAPUI_VERSION 5.10.0
-ENV MYSQL_CONNECTOR_VERSION 9.7.0
+ENV MYSQL_CONNECTOR_VERSION 26.7.0
 
 # Install gzip and tar
 RUN yum -y install gzip tar && yum -y clean all  && rm -rf /var/cache
 
-# Download and unarchive SoapUI
+# Download and unarchive SoapUI`ac
 RUN mkdir -p /opt &&\
     curl -s https://dl.eviware.com/soapuios/${SOAPUI_VERSION}/SoapUI-${SOAPUI_VERSION}-linux-bin.tar.gz  \
     | tar -xvz -C /opt && \
